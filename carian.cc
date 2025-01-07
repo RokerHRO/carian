@@ -37,12 +37,84 @@ std::string toUtf8(const std::vector<unsigned>& v)
 	return s;
 }
 
-typedef std::uniform_int_distribution<unsigned> UID;
 
-po::typed_value<UID>*  Distri(UID* uid, unsigned first, unsigned last)
+size_t interval_length() { return 0; }
+
+template<class... T>
+size_t interval_length(unsigned first, unsigned last, T... rest)
 {
-	auto d = new po::typed_value<UID>(uid);
-	d->implicit_value( UID(first,last) );
+	return last-first+1 + interval_length(rest...);
+}
+
+std::vector<unsigned> interval()
+{
+	return std::vector<unsigned>{};
+}
+
+template<class... T>
+std::vector<unsigned> interval(unsigned first, unsigned last, T... rest)
+{
+	if(first==last)
+	{
+		return std::vector<unsigned>(1, first);
+	}
+
+	std::vector<unsigned> v;
+	v.reserve(interval_length(first, last, rest...));
+	for(unsigned u=first; u<=last; ++u)
+		v.push_back(u);
+	
+	if(sizeof...(rest))
+	{
+		std::vector<unsigned> rv = interval(rest...);
+		v.insert(v.end(), rv.begin(), rv.end());
+	}
+	
+	return v;
+}
+
+
+class Script
+{
+public:
+	
+	template<class... T>
+	Script(T... intervals)
+	: values{interval(intervals...)}
+	, uid{0u, (unsigned)values.size()-1}
+	{}
+	
+	template<class Generator>
+	unsigned operator()(Generator& g)
+	{
+		const unsigned idx = uid(g);
+		return values.at(idx);
+	}
+	
+	friend
+	std::ostream& operator<<(std::ostream& o, const Script& s);
+
+private:
+	std::vector<unsigned> values;
+	std::uniform_int_distribution<unsigned> uid;
+};
+
+std::ostream& operator<<(std::ostream& o, const Script& s)
+{
+	return o << "{" << s.values.size() << " values, from " << s.uid.min() << " to " << s.uid.max() << ".}";
+}
+
+// dummy:
+std::istream& operator>>(std::istream& i, const Script& s)
+{
+	return i;
+}
+
+
+po::typed_value<Script>*  Distri(Script* script, unsigned first, unsigned last)
+{
+	auto d = new po::typed_value<Script>(script);
+	d->implicit_value( Script(first,last) );
 	d->zero_tokens();
 	return d;
 }
@@ -51,8 +123,9 @@ po::typed_value<UID>*  Distri(UID* uid, unsigned first, unsigned last)
 int main(int argc, char** argv)
 {
 	unsigned line_len = 0;
-	UID uid('A', 'Z'); // okay, use A..Z if no command line option is given.
 	std::random_device rd;
+	std::mt19937 gen(rd());
+	Script uid('A', 'Z'); // okay, use A..Z if no command line option is given.
 	
 	po::options_description desc;
 	desc.add_options()
@@ -87,11 +160,13 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
+//	std::cerr << "Script: " << uid << std::endl;
+
 	std::uniform_real_distribution<double> len( 0.0, 1.0 );
 	
 	for(;;)
 	{
-		std::cout << toUtf8( uid(rd) );
+		std::cout << toUtf8( uid(gen) );
 		++line_len;
 		if( len(rd) < 0.3 || (line_len>70 && len(rd) < (0.3+(line_len-70)*0.1) ))
 		{
