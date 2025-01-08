@@ -156,7 +156,8 @@ int main(int argc, char** argv)
 		("permic,p",  Distri(&uid, 0x10350, 0x10375), "Old Permic")
 		("shavian,s", Distri(&uid, 0x10450, 0x1047F), "Shavian")
 		("orchon,o",  Distri(&uid, 0x10C00, 0x10C48), "Ochon runes")
-		("osmanya,O", Distri(&uid, 0x10480, 0x104A9), "Osmanya")  // FIXME: 1049E, 1049F are not defined!
+		("osmanya,O", Distri(&uid, 0x10480, 0x1049D,
+		                           0x104A0, 0x104A9), "Osmanya")
 		("lisu,l",    Distri(&uid,  0xA4D0,  0xA4F7), "Lisu alphabet")
 		("tifinagh,t",Distri(&uid,  0x2D30,  0x2D70), "Tifinagh (Tuareg) alphabet")
 		("inuktitut,i", Distri(&uid,  0x1400,  0x167F), "Unified Canadian Aboriginal Syllabics")
