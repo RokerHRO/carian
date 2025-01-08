@@ -54,11 +54,8 @@ std::vector<unsigned> interval()
 template<class... T>
 std::vector<unsigned> interval(unsigned first, unsigned last, T... rest)
 {
-	if(first==last)
-	{
-		return std::vector<unsigned>(1, first);
-	}
-
+//	std::cerr << "Interval(" << std::hex << first << ", " << std::hex << last << " (" << std::dec << sizeof...(rest) << " remaining) \n";
+	
 	std::vector<unsigned> v;
 	v.reserve(interval_length(first, last, rest...));
 	for(unsigned u=first; u<=last; ++u)
@@ -73,6 +70,26 @@ std::vector<unsigned> interval(unsigned first, unsigned last, T... rest)
 	return v;
 }
 
+
+template<class... T>
+std::vector<unsigned> interval(const char32_t* s, T... rest)
+{
+	std::vector<unsigned> v;
+	unsigned u=0;
+	while(*s)
+	{
+		v.push_back( unsigned(*s) );
+		++s;
+	}
+	
+	if(sizeof...(rest))
+	{
+		std::vector<unsigned> rv = interval(rest...);
+		v.insert(v.end(), rv.begin(), rv.end());
+	}
+	
+	return v;
+}
 
 class Script
 {
@@ -111,10 +128,11 @@ std::istream& operator>>(std::istream& i, const Script& s)
 }
 
 
-po::typed_value<Script>*  Distri(Script* script, unsigned first, unsigned last)
+template<class... T>
+po::typed_value<Script>*  Distri(Script* script, T... intervals)
 {
 	auto d = new po::typed_value<Script>(script);
-	d->implicit_value( Script(first,last) );
+	d->implicit_value( Script(intervals...) );
 	d->zero_tokens();
 	return d;
 }
@@ -142,7 +160,12 @@ int main(int argc, char** argv)
 		("lisu,l",    Distri(&uid,  0xA4D0,  0xA4F7), "Lisu alphabet")
 		("tifinagh,t",Distri(&uid,  0x2D30,  0x2D70), "Tifinagh (Tuareg) alphabet")
 		("inuktitut,i", Distri(&uid,  0x1400,  0x167F), "Unified Canadian Aboriginal Syllabics")
-		("cypriot"    , Distri(&uid, 0x10800, 0x1083F), "Cypriote syllabary") // FIXME: there are gaps in the codeblock!
+		("cypriot"    , Distri(&uid, 0x10800, 0x10805,
+		                             0x10808, 0x10808,
+		                             0x1080A, 0x10835,
+		                             0x10837, 0x10838,
+		                             0x1083C, 0x1083C,
+		                             0x1083F, 0x1083F ), "Cypriote syllabary")
 	;
 	
 	try{
