@@ -41,15 +41,35 @@ std::string toUtf8(const std::vector<unsigned>& v)
 size_t interval_length() { return 0; }
 
 template<class... T>
+size_t interval_length(const char32_t* s, T... rest);
+
+template<class... T>
 size_t interval_length(unsigned first, unsigned last, T... rest)
 {
 	return last-first+1 + interval_length(rest...);
 }
 
+template<class... T>
+size_t interval_length(const char32_t* s, T... rest)
+{
+	size_t len = 0;
+	while(*s)
+	{
+		++len;
+		++s;
+	}
+	return len + interval_length(rest...);
+}
+
+
 std::vector<unsigned> interval()
 {
 	return std::vector<unsigned>{};
 }
+
+template<class... T>
+std::vector<unsigned> interval(const char32_t* s, T... rest);
+
 
 template<class... T>
 std::vector<unsigned> interval(unsigned first, unsigned last, T... rest)
@@ -75,7 +95,6 @@ template<class... T>
 std::vector<unsigned> interval(const char32_t* s, T... rest)
 {
 	std::vector<unsigned> v;
-	unsigned u=0;
 	while(*s)
 	{
 		v.push_back( unsigned(*s) );
@@ -167,6 +186,29 @@ int main(int argc, char** argv)
 		                             0x10837, 0x10838,
 		                             0x1083C, 0x1083C,
 		                             0x1083F, 0x1083F ), "Cypriote syllabary")
+		("armenian",    Distri(&uid, 0x0531, 0x0556,
+		                             0x0560, 0x0588,
+		                             0x058D, 0x058F ), "Armenian")
+		("hebrew",      Distri(&uid, 0x05D0, 0x05EA ), "Hebrew")
+		("nko",         Distri(&uid, 0x07C0, 0x07E7,
+		                             0x07F6, 0x07F7,
+		                             0x07FE, 0x07FF ), "NKo")
+		("ethiopic",    Distri(&uid, 0x1200, 0x1248,
+		                             0x124A, 0x124D,
+		                             0x1250, 0x1256,
+		                             U"\u1258\u12C0",
+		                             0x125A, 0x125D,
+		                             0x1260, 0x1288,
+		                             0x128A, 0x128D,
+		                             0x1290, 0x12B0,
+		                             0x12B2, 0x12B5,
+		                             0x12B8, 0x12BE,
+		                             0x12C2, 0x12C5,
+		                             0x12C8, 0x12D6,
+		                             0x12D8, 0x1310,
+		                             0x1312, 0x1315,
+		                             0x1318, 0x135A,
+		                             0x135D, 0x137C), "Ethiopic")
 	;
 	
 	try{
