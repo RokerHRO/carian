@@ -209,6 +209,9 @@ int main(int argc, char** argv)
 		                             0x1312, 0x1315,
 		                             0x1318, 0x135A,
 		                             0x135D, 0x137C), "Ethiopic")
+		("cherokee",    Distri(&uid, 0x13A0, 0x13F5,
+		                             0x13F8, 0x13FD), "Cherokee")
+		
 	;
 	
 	try{
