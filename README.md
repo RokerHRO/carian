@@ -17,7 +17,12 @@ Currently supported scripts:
   -t [ --tifinagh ]     Tifinagh (Tuareg) alphabet
   -i [ --inuktitut ]    Unified Canadian Aboriginal Syllabics
   --cypriot             Cypriote syllabary
-```
+  --armenian            Armenian
+  --hebrew              Hebrew
+  --nko                 NKo
+  --ethiopic            Ethiopic
+  --cherokee            Cherokee
+
 
 ## Examples
 
