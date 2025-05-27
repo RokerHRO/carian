@@ -22,7 +22,7 @@ Currently supported scripts:
   --nko                 NKo
   --ethiopic            Ethiopic
   --cherokee            Cherokee
-
+```
 
 ## Examples
 
