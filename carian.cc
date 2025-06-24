@@ -211,7 +211,20 @@ int main(int argc, char** argv)
 		                             0x135D, 0x137C), "Ethiopic")
 		("cherokee",    Distri(&uid, 0x13A0, 0x13F5,
 		                             0x13F8, 0x13FD), "Cherokee")
-		
+		("vai",         Distri(&uid, 0xA500, 0xA62B), "Vai syllabary")
+		("nag",         Distri(&uid, 0x1E4D0, 0x1E4F9), "Nag Mundari")
+		("wancho",      Distri(&uid, 0x1E2C0, 0x1E2F9,
+		                             0x1E2FF, 0x1E2FF), "Wancho")
+		("toto",        Distri(&uid, 0x1E290, 0x1E2AE), "Toto")
+		("adlam",       Distri(&uid, 0x1E900, 0x1E943), "Adlam")
+		("domino-h",    Distri(&uid, 0x1F030, 0x1F061), "horizontal Domino tiles")
+		("domino-v",    Distri(&uid, 0x1F062, 0x1F093), "vertical Domino tiles")
+		("pictograph",  Distri(&uid, 0x1F300, 0x1F5FF), "Miscellaneous Symbols and Pictographs")
+		("emoticons",   Distri(&uid, 0x1F600, 0x1F64F), "Emoticons (Smileys)")
+		("alchemy",     Distri(&uid, 0x1F700, 0x1F776,
+		                             0x1F77B, 0x1F77F), "Alchemical Symbols")
+		("cjk-2",       Distri(&uid, 0x20000, 0x2A6DF), "CJK ideographs, plane 2")
+		("cjk-3",       Distri(&uid, 0x30000, 0x323AF), "CJK ideographs, plane 3")
 	;
 	
 	try{
