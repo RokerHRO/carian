@@ -212,10 +212,39 @@ int main(int argc, char** argv)
 		("cherokee",    Distri(&uid, 0x13A0, 0x13F5,
 		                             0x13F8, 0x13FD), "Cherokee")
 		("vai",         Distri(&uid, 0xA500, 0xA62B), "Vai syllabary")
+		("taiviet",     Distri(&uid, 0xAA80, 0xAAAF,
+		                             0xAAB5, 0xAAB6,
+		                             0xAAB9, 0xAABD,
+		                             0xAADB, 0xAADD), "Tai Viet")
+		("bamum",       Distri(&uid, 0xA6A0, 0xA6F7), "Bamum")
+		("bamum-sup",   Distri(&uid, 0x16800, 0x16A3F), "Bamum Supplement")
+		("hatran",      Distri(&uid, 0x108E0, 0x108F2,
+		                             0x108F4, 0x108F5,
+		                             0x108FB, 0x108FF), "Hatran")
+		("lydian",      Distri(&uid, 0x10920, 0x10939,
+		                             0x1093F, 0x1093F), "Lydian")
+		("osa",         Distri(&uid, 0x10A60, 0x10A7F), "Old South Arabian")
+		("ona",         Distri(&uid, 0x10A80, 0x10A9F), "Old North Arabian")
+		("zanabazar",   Distri(&uid, U"\U00011A00",
+		                             0x11A0B, 0x11A32,
+		                             0x11A3F, 0x11A46), "Zanabazar Square")
+		("mro",         Distri(&uid, 0x16A40, 0x16A5E,
+		                             0x16A60, 0x16A69), "Mro")
+		("bassa",       Distri(&uid, 0x16AD0, 0x16AED), "Bassa Vah")
+		("pahawh",      Distri(&uid, 0x16B00, 0x16B2F,
+		                             0x16B37, 0x16B3F,
+		                             0x16B40, 0x16B45,
+		                             0x16B50, 0x16B59,
+		                             0x16B5B, 0x16B61,
+		                             0x16B63, 0x16B77,
+		                             0x16B7D, 0x16BFF), "Pahawh Hmong")
+		("medefaidrin", Distri(&uid, 0x16F40, 0x16E9A), "Medefaidrin")
 		("nag",         Distri(&uid, 0x1E4D0, 0x1E4F9), "Nag Mundari")
 		("wancho",      Distri(&uid, 0x1E2C0, 0x1E2F9,
 		                             0x1E2FF, 0x1E2FF), "Wancho")
 		("toto",        Distri(&uid, 0x1E290, 0x1E2AE), "Toto")
+		("mende",       Distri(&uid, 0x1E800, 0x1E8C4,
+		                             0x1E8C7, 0x1E8CF), "Mende Kikakui")
 		("adlam",       Distri(&uid, 0x1E900, 0x1E943), "Adlam")
 		("domino-h",    Distri(&uid, 0x1F030, 0x1F061), "horizontal Domino tiles")
 		("domino-v",    Distri(&uid, 0x1F062, 0x1F093), "vertical Domino tiles")
