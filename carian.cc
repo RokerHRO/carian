@@ -77,7 +77,8 @@ std::vector<unsigned> interval(unsigned first, unsigned last, T... rest)
 //	std::cerr << "Interval(" << std::hex << first << ", " << std::hex << last << " (" << std::dec << sizeof...(rest) << " remaining) \n";
 	
 	std::vector<unsigned> v;
-	v.reserve(interval_length(first, last, rest...));
+	const auto len = interval_length(first, last, rest...);
+	v.reserve(len);
 	for(unsigned u=first; u<=last; ++u)
 		v.push_back(u);
 	
@@ -115,6 +116,7 @@ class Script
 public:
 	
 	template<class... T>
+	explicit
 	Script(T... intervals)
 	: values{interval(intervals...)}
 	, uid{0u, (unsigned)values.size()-1}
@@ -238,7 +240,7 @@ int main(int argc, char** argv)
 		                             0x16B5B, 0x16B61,
 		                             0x16B63, 0x16B77,
 		                             0x16B7D, 0x16BFF), "Pahawh Hmong")
-		("medefaidrin", Distri(&uid, 0x16F40, 0x16E9A), "Medefaidrin")
+		("medefaidrin", Distri(&uid, 0x16E40, 0x16E9A), "Medefaidrin")
 		("nag",         Distri(&uid, 0x1E4D0, 0x1E4F9), "Nag Mundari")
 		("wancho",      Distri(&uid, 0x1E2C0, 0x1E2F9,
 		                             0x1E2FF, 0x1E2FF), "Wancho")
