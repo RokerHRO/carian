@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stdexcept>
 #include <random>
 #include <boost/program_options.hpp>
 
@@ -46,6 +47,8 @@ size_t interval_length(const char32_t* s, T... rest);
 template<class... T>
 size_t interval_length(unsigned first, unsigned last, T... rest)
 {
+	if(first>last)
+		throw std::logic_error("Illegal interval: first>last");
 	return last-first+1 + interval_length(rest...);
 }
 
